@@ -5,6 +5,7 @@
         <div class="card">
             <h2>Add New Category</h2>
             <form method="POST">
+                <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
                 <input type="hidden" name="action" value="create">
                 <div class="form-group">
                     <label for="name">Name</label>
@@ -54,6 +55,7 @@
                                     </svg>
                                 </a>
                                 <form method="POST" style="display: inline;">
+                                    <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
                                     <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="id" value="<?= $cat['id'] ?>">
                                     <button type="submit" class="icon-btn danger" title="Delete" onclick="return confirm('Delete this category?')">

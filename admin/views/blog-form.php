@@ -4,6 +4,7 @@ include __DIR__ . '/layout.php';
 ?>
 
 <form method="POST" enctype="multipart/form-data" class="blog-form">
+    <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
     <div class="form-layout">
         <div class="form-main">
             <div class="form-group">
