@@ -179,6 +179,27 @@ elseif ($uri === '/settings') {
     $pageTitle = 'Settings';
     include __DIR__ . '/views/settings.php';
 }
+elseif ($uri === '/custom-code') {
+    $settings = $settingsModel->getAll();
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (!verify_csrf($_POST['csrf_token'] ?? '')) {
+            die('CSRF token validation failed');
+        }
+        
+        $data = [
+            'custom_head_code' => $_POST['custom_head_code'],
+            'custom_body_code' => $_POST['custom_body_code'],
+            'custom_footer_code' => $_POST['custom_footer_code']
+        ];
+        
+        $settingsModel->update($data);
+        redirect('/admin/custom-code');
+    }
+    
+    $pageTitle = 'Custom Code';
+    include __DIR__ . '/views/custom-code.php';
+}
 else {
     redirect('/admin');
 }

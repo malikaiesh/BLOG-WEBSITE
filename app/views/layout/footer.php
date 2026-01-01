@@ -74,6 +74,10 @@
         </div>
     </footer>
     
+    <?php 
+    $footerSettings = (new Settings())->getAll();
+    echo $footerSettings['custom_footer_code'] ?? ''; 
+    ?>
     <script src="/assets/js/main.js"></script>
 </body>
 </html>

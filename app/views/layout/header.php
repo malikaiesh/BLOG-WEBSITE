@@ -20,8 +20,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css">
+    <?php 
+    $headerSettings = (new Settings())->getAll();
+    echo $headerSettings['custom_head_code'] ?? ''; 
+    ?>
 </head>
 <body>
+    <?php echo $headerSettings['custom_body_code'] ?? ''; ?>
     <header class="main-header">
         <nav class="navbar">
             <a href="/" class="logo">
