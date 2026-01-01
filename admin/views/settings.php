@@ -1,4 +1,7 @@
-<?php include __DIR__ . '/layout.php'; ?>
+<?php 
+$pageTitle = 'Site Settings';
+include __DIR__ . '/layout.php'; 
+?>
 
 <div class="card">
     <div class="card-header">

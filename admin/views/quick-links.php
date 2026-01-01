@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/../../config/init.php';
+$pageTitle = 'Manage Quick Links';
+include __DIR__ . '/layout.php';
+
 $quickLinkModel = new QuickLink();
 
 $editLink = null;
@@ -34,10 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $quickLinks = $quickLinkModel->getAll();
-$pageTitle = 'Manage Quick Links';
-
-// We wrap the content in a variable
-ob_start();
 ?>
 
 <div class="card" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
@@ -115,7 +113,4 @@ ob_start();
     </div>
 </div>
 
-<?php 
-$content = ob_get_clean();
-include __DIR__ . '/layout.php';
-?>
+<?php include __DIR__ . '/layout-end.php'; ?>

@@ -1,4 +1,7 @@
-<?php include __DIR__ . '/layout.php'; ?>
+<?php 
+$pageTitle = 'SEO Optimization';
+include __DIR__ . '/layout.php'; 
+?>
 
 <div class="card">
     <div class="card-header">
