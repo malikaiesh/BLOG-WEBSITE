@@ -39,6 +39,7 @@ requireLogin();
 $blogModel = new Blog();
 $categoryModel = new Category();
 $userModel = new User();
+$settingsModel = new Settings();
 
 if ($uri === '/' || $uri === '') {
     $stats = [
@@ -155,6 +156,28 @@ elseif ($uri === '/categories') {
     }
     
     include __DIR__ . '/views/categories.php';
+}
+elseif ($uri === '/settings') {
+    $settings = $settingsModel->getAll();
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (!verify_csrf($_POST['csrf_token'] ?? '')) {
+            die('CSRF token validation failed');
+        }
+        
+        $data = [
+            'site_name' => sanitize($_POST['site_name']),
+            'site_description' => sanitize($_POST['site_description']),
+            'site_keywords' => sanitize($_POST['site_keywords']),
+            'footer_social_links' => $_POST['social']
+        ];
+        
+        $settingsModel->update($data);
+        redirect('/admin/settings');
+    }
+    
+    $pageTitle = 'Settings';
+    include __DIR__ . '/views/settings.php';
 }
 else {
     redirect('/admin');

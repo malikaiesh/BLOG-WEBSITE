@@ -15,6 +15,16 @@
     --radius: 8px;
 }
 
+[data-theme="dark"] {
+    --bg-primary: #121212;
+    --bg-secondary: #1e1e1e;
+    --bg-tertiary: #2d2d2d;
+    --text-primary: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --border-color: #333333;
+    --shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -255,8 +265,32 @@ a {
     justify-content: space-between;
     align-items: center;
     padding: 20px 32px;
-    background: white;
+    background: var(--bg-primary);
     border-bottom: 1px solid var(--border-color);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.theme-toggle:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
 }
 
 .admin-header h1 {

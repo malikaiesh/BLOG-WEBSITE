@@ -1,7 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
     initSlugGenerator();
     initImagePreview();
+    initThemeToggle();
 });
+
+function initThemeToggle() {
+    const toggle = document.getElementById('theme-toggle');
+    if (!toggle) return;
+
+    const currentTheme = localStorage.getItem('admin-theme') || 'light';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+
+    toggle.addEventListener('click', () => {
+        const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('admin-theme', newTheme);
+    });
+}
 
 function initSlugGenerator() {
     const titleInput = document.getElementById('title');
