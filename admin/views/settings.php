@@ -5,6 +5,11 @@
         <h2>Site Settings</h2>
     </div>
     <div class="card-content">
+        <?php if (isset($_GET['success'])): ?>
+            <div class="alert success" style="background: #e8f5e9; color: #2e7d32; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+                Settings updated successfully!
+            </div>
+        <?php endif; ?>
         <form action="/admin/settings" method="POST">
             <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
             

@@ -173,7 +173,7 @@ elseif ($uri === '/settings') {
         ];
         
         $settingsModel->update($data);
-        redirect('/admin/settings');
+        redirect('/admin/settings?success=1');
     }
     
     $pageTitle = 'Settings';
@@ -215,7 +215,7 @@ elseif ($uri === '/seo') {
         ];
         
         $settingsModel->update($data);
-        redirect('/admin/seo');
+        redirect('/admin/seo?success=1');
     }
     
     $pageTitle = 'SEO Optimization';
