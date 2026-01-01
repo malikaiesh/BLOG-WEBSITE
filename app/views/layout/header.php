@@ -32,8 +32,8 @@
             </a>
             
             <div class="search-container">
-                <form action="/search" method="GET" class="search-form">
-                    <input type="text" name="q" placeholder="Search articles..." value="<?= htmlspecialchars($_GET['q'] ?? '') ?>" class="search-input" id="searchInput">
+                <form action="/" method="GET" class="search-form">
+                    <input type="text" name="search" placeholder="Search articles..." value="<?= htmlspecialchars($_GET['search'] ?? '') ?>" class="search-input" id="searchInput">
                     <button type="submit" class="search-btn">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="11" cy="11" r="8"></circle>

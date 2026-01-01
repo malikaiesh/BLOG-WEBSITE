@@ -67,30 +67,22 @@ include APP_PATH . '/views/layout/header.php';
                         </svg>
                     </div>
                     <?php endif; ?>
-                    <?php if ($blog['category_name']): ?>
-                    <span class="category-badge"><?= htmlspecialchars($blog['category_name']) ?></span>
-                    <?php endif; ?>
                 </a>
                 <div class="card-content">
-                    <a href="/blog/<?= $blog['slug'] ?>" class="card-title">
-                        <?= htmlspecialchars($blog['title']) ?>
-                    </a>
-                    <p class="card-excerpt"><?= excerpt($blog['excerpt'] ?: $blog['content'], 100) ?></p>
-                    <div class="card-meta">
-                        <span class="author"><?= htmlspecialchars($blog['author_name'] ?? 'Admin') ?></span>
-                        <span class="dot">•</span>
-                        <span class="date"><?= timeAgo($blog['created_at']) ?></span>
-                        <span class="dot">•</span>
-                        <span class="reading-time"><?= readingTime($blog['content']) ?></span>
+                    <div class="author-avatar-card">
+                        <?= strtoupper(substr($blog['author_name'] ?? 'A', 0, 1)) ?>
                     </div>
-                    <div class="card-stats">
-                        <span class="views">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                <circle cx="12" cy="12" r="3"></circle>
-                            </svg>
-                            <?= number_format($blog['views']) ?>
-                        </span>
+                    <div class="card-info">
+                        <a href="/blog/<?= $blog['slug'] ?>" class="card-title">
+                            <?= htmlspecialchars($blog['title']) ?>
+                        </a>
+                        <div class="card-meta-yt">
+                            <span class="author"><?= htmlspecialchars($blog['author_name'] ?? 'Admin') ?></span>
+                            <span class="dot">•</span>
+                            <span class="views"><?= number_format($blog['views']) ?> views</span>
+                            <span class="dot">•</span>
+                            <span class="date"><?= timeAgo($blog['created_at']) ?></span>
+                        </div>
                     </div>
                 </div>
             </article>

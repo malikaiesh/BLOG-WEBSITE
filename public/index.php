@@ -11,7 +11,14 @@ header('Expires: 0');
 if ($uri === '/') {
     $blogModel = new Blog();
     $categoryModel = new Category();
-    $blogs = $blogModel->getAll(12, 0);
+    
+    $searchQuery = $_GET['search'] ?? '';
+    if (!empty($searchQuery)) {
+        $blogs = $blogModel->search($searchQuery);
+    } else {
+        $blogs = $blogModel->getAll(12, 0);
+    }
+    
     $categories = $categoryModel->getWithCount();
     $trending = $blogModel->getTrending(5);
     include APP_PATH . '/views/home.php';

@@ -70,10 +70,12 @@ button {
 .navbar {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 24px;
     max-width: 1400px;
     margin: 0 auto;
     padding: 12px 24px;
+    position: relative;
 }
 
 .logo {
@@ -83,6 +85,8 @@ button {
     font-size: 20px;
     font-weight: 700;
     color: var(--text-primary);
+    position: relative;
+    z-index: 10;
 }
 
 .logo svg {
@@ -92,7 +96,9 @@ button {
 .search-container {
     flex: 1;
     max-width: 600px;
-    position: relative;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .search-form {
@@ -147,6 +153,8 @@ button {
     display: flex;
     align-items: center;
     gap: 16px;
+    position: relative;
+    z-index: 10;
 }
 
 .theme-toggle {
@@ -324,20 +332,22 @@ button {
 
 .blog-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
 }
 
 .blog-card {
-    background: var(--bg-secondary);
-    border-radius: var(--radius);
+    background: transparent;
+    border-radius: 0;
     overflow: hidden;
-    transition: var(--transition);
+    transition: none;
+    display: flex;
+    flex-direction: column;
 }
 
 .blog-card:hover {
-    box-shadow: var(--shadow-hover);
-    transform: translateY(-2px);
+    box-shadow: none !important;
+    transform: none !important;
 }
 
 .card-image {
@@ -345,43 +355,38 @@ button {
     aspect-ratio: 16/9;
     background: var(--bg-tertiary);
     overflow: hidden;
+    border-radius: 12px;
+    margin-bottom: 12px;
 }
 
 .card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: var(--transition);
-}
-
-.blog-card:hover .card-image img {
-    transform: scale(1.05);
-}
-
-.placeholder-image {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-}
-
-.category-badge {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    padding: 4px 10px;
-    background: var(--primary);
-    color: white;
-    font-size: 11px;
-    font-weight: 600;
-    border-radius: 4px;
-    text-transform: uppercase;
 }
 
 .card-content {
-    padding: 16px;
+    padding: 0;
+    display: flex;
+    gap: 12px;
+}
+
+.author-avatar-card {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.card-info {
+    flex: 1;
 }
 
 .card-title {
@@ -391,8 +396,22 @@ button {
     overflow: hidden;
     font-size: 16px;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     line-height: 1.4;
+}
+
+.card-meta-yt {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.card-meta-yt .dot {
+    margin: 0 4px;
+}
+
+/* Hide elements not in YouTube style */
+.card-excerpt, .card-stats, .card-meta:not(.card-meta-yt), .category-badge {
+    display: none !important;
 }
 
 .card-excerpt {
