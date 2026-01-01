@@ -764,6 +764,18 @@ button {
     background: #0077b5;
 }
 
+.share-btn.whatsapp {
+    background: #25d366;
+}
+
+.share-btn.pinterest {
+    background: #bd081c;
+}
+
+.share-btn.email {
+    background: #777777;
+}
+
 .share-btn svg {
     display: block;
 }
