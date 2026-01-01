@@ -1,5 +1,4 @@
 <?php
-$pageTitle = 'Manage Quick Links';
 require_once __DIR__ . '/../../config/init.php';
 $quickLinkModel = new QuickLink();
 
@@ -35,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $quickLinks = $quickLinkModel->getAll();
-include __DIR__ . '/layout.php';
+$pageTitle = 'Manage Quick Links';
+ob_start();
 ?>
 
 <div class="card">
@@ -51,64 +51,69 @@ include __DIR__ . '/layout.php';
         
         <div class="form-group">
             <label>Title (Anchor Text)</label>
-            <input type="text" name="title" required placeholder="Link Title" value="<?= $editLink ? htmlspecialchars($editLink['title']) : '' ?>">
+            <input type="text" name="title" required placeholder="Link Title" value="<?= $editLink ? htmlspecialchars($editLink['title']) : '' ?>" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
         </div>
-        <div class="form-group">
+        <div class="form-group" style="margin-top: 15px;">
             <label>URL</label>
-            <input type="url" name="url" required placeholder="https://example.com" value="<?= $editLink ? htmlspecialchars($editLink['url']) : '' ?>">
+            <input type="url" name="url" required placeholder="https://example.com" value="<?= $editLink ? htmlspecialchars($editLink['url']) : '' ?>" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
         </div>
-        <div class="form-group">
+        <div class="form-group" style="margin-top: 15px;">
             <label>Sort Order</label>
-            <input type="number" name="sort_order" value="<?= $editLink ? $editLink['sort_order'] : '0' ?>">
+            <input type="number" name="sort_order" value="<?= $editLink ? $editLink['sort_order'] : '0' ?>" style="width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
         </div>
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary"><?= $editLink ? 'Update Link' : 'Add Link' ?></button>
+        <div class="form-actions" style="margin-top: 20px; display: flex; gap: 10px;">
+            <button type="submit" class="btn btn-primary" style="background: #e50914; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;"><?= $editLink ? 'Update Link' : 'Add Link' ?></button>
             <?php if ($editLink): ?>
-                <a href="/admin/quick-links" class="btn btn-secondary">Cancel</a>
+                <a href="/admin/quick-links" class="btn btn-secondary" style="background: #6c757d; color: white; padding: 10px 20px; border-radius: 4px; text-decoration: none;">Cancel</a>
             <?php endif; ?>
         </div>
     </form>
 </div>
 
-<div class="card mt-20">
+<div class="card" style="margin-top: 30px;">
     <div class="card-header">
         <h2>Existing Links</h2>
     </div>
-    <table class="admin-table">
-        <thead>
-            <tr>
-                <th>Order</th>
-                <th>Title</th>
-                <th>URL</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($quickLinks as $link): ?>
-            <tr>
-                <td><?= $link['sort_order'] ?></td>
-                <td><?= htmlspecialchars($link['title']) ?></td>
-                <td><a href="<?= htmlspecialchars($link['url']) ?>" target="_blank" class="text-link"><?= htmlspecialchars($link['url']) ?></a></td>
-                <td class="table-actions">
-                    <a href="/admin/quick-links?edit=<?= $link['id'] ?>" class="btn btn-sm btn-primary" style="background: #2196F3; border-color: #2196F3;">Edit</a>
-                    <form action="/admin/quick-links" method="POST" onsubmit="return confirm('Delete this link?')" style="display:inline;">
-                        <input type="hidden" name="csrf_token" value="<?= generate_csrf() ?>">
-                        <input type="hidden" name="action" value="delete">
-                        <input type="hidden" name="id" value="<?= $link['id'] ?>">
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+    <div style="overflow-x: auto;">
+        <table class="admin-table" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <thead>
+                <tr style="background: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                    <th style="padding: 12px; text-align: left;">Order</th>
+                    <th style="padding: 12px; text-align: left;">Title</th>
+                    <th style="padding: 12px; text-align: left;">URL</th>
+                    <th style="padding: 12px; text-align: left;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($quickLinks as $link): ?>
+                <tr style="border-bottom: 1px solid #dee2e6;">
+                    <td style="padding: 12px;"><?= $link['sort_order'] ?></td>
+                    <td style="padding: 12px; font-weight: 500;"><?= htmlspecialchars($link['title']) ?></td>
+                    <td style="padding: 12px;"><a href="<?= htmlspecialchars($link['url']) ?>" target="_blank" style="color: #2196F3; text-decoration: none;"><?= htmlspecialchars($link['url']) ?></a></td>
+                    <td style="padding: 12px;">
+                        <div style="display: flex; gap: 8px;">
+                            <a href="/admin/quick-links?edit=<?= $link['id'] ?>" class="btn btn-sm" style="background: #2196F3; color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none; font-size: 12px;">Edit</a>
+                            <form action="/admin/quick-links" method="POST" onsubmit="return confirm('Delete this link?')" style="display:inline;">
+                                <input type="hidden" name="csrf_token" value="<?= generate_csrf() ?>">
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="id" value="<?= $link['id'] ?>">
+                                <button type="submit" class="btn btn-danger btn-sm" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px;">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+                <?php if (empty($quickLinks)): ?>
+                <tr>
+                    <td colspan="4" style="padding: 20px; text-align: center; color: #666;">No links found. Add your first link above!</td>
+                </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<style>
-.text-link { color: #2196F3; text-decoration: none; }
-.text-link:hover { text-decoration: underline; }
-.mt-20 { margin-top: 20px; }
-.table-actions { display: flex; gap: 5px; }
-.btn-secondary { background: #6c757d; color: white; border: none; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block; font-size: 14px; }
-.form-actions { display: flex; gap: 10px; align-items: center; }
-</style>
+<?php 
+$content = ob_get_clean();
+include __DIR__ . '/layout.php';
+?>

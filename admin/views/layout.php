@@ -93,3 +93,7 @@
             </header>
             
             <div class="admin-content">
+                <?= $content ?? '' ?>
+            </div>
+        </main>
+    </div>
