@@ -2,6 +2,11 @@
 $uri = $_SERVER['REQUEST_URI'];
 $path = parse_url($uri, PHP_URL_PATH);
 
+if ($path === '/sitemap.xml') {
+    require 'sitemap.xml.php';
+    exit;
+}
+
 if (preg_match('/^\/admin\/assets\/(.+)$/', $path, $matches)) {
     $file = __DIR__ . '/../admin/assets/' . $matches[1];
     if (file_exists($file)) {

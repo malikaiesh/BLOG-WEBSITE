@@ -9,6 +9,7 @@ define('SITE_URL', 'https://' . ($_SERVER['HTTP_HOST'] ?? 'localhost'));
 
 require_once ROOT_PATH . '/config/database.php';
 require_once APP_PATH . '/helpers/functions.php';
+require_once APP_PATH . '/helpers/seo_helper.php';
 
 function autoload($class) {
     $paths = [

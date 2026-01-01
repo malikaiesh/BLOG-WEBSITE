@@ -23,6 +23,23 @@
     <?php 
     $headerSettings = (new Settings())->getAll();
     echo $headerSettings['custom_head_code'] ?? ''; 
+    
+    // SEO & Schema
+    if (isset($blog)) {
+        echo generateSchema('BlogPosting', [
+            'title' => $blog['title'],
+            'excerpt' => $blog['excerpt'],
+            'featured_image' => $blog['featured_image'],
+            'author_name' => $blog['author_name'],
+            'created_at' => $blog['created_at'],
+            'updated_at' => $blog['updated_at']
+        ]);
+    } else {
+        echo generateSchema('WebSite', [
+            'site_name' => $headerSettings['site_name'] ?? 'BlogTube',
+            'site_description' => $headerSettings['site_description'] ?? ''
+        ]);
+    }
     ?>
 </head>
 <body>
