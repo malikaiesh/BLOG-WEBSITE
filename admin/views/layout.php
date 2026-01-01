@@ -93,10 +93,3 @@
             </header>
             
             <div class="admin-content" style="padding: 20px;">
-                <?php if (isset($content)) echo $content; ?>
-            </div>
-        </main>
-    </div>
-    <script src="/admin/assets/admin.js"></script>
-</body>
-</html>
