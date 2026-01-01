@@ -221,6 +221,9 @@ elseif ($uri === '/seo') {
     $pageTitle = 'SEO Optimization';
     include __DIR__ . '/views/seo.php';
 }
+elseif ($uri === '/quick-links') {
+    include __DIR__ . '/views/quick-links.php';
+}
 else {
     redirect('/admin');
 }

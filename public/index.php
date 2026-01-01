@@ -11,6 +11,7 @@ header('Expires: 0');
 if ($uri === '/') {
     $blogModel = new Blog();
     $categoryModel = new Category();
+    $quickLinkModel = new QuickLink();
     
     $searchQuery = $_GET['search'] ?? '';
     if (!empty($searchQuery)) {
@@ -21,6 +22,7 @@ if ($uri === '/') {
     
     $categories = $categoryModel->getWithCount();
     $trending = $blogModel->getTrending(5);
+    $quickLinks = $quickLinkModel->getAll();
     include APP_PATH . '/views/home.php';
 }
 elseif ($uri === '/api/blogs') {

@@ -36,6 +36,24 @@ include APP_PATH . '/views/layout/header.php';
                 <?php endforeach; ?>
             </ul>
         </div>
+
+        <div class="sidebar-section">
+            <h3>Quick Links</h3>
+            <ul class="category-list">
+                <?php foreach ($quickLinks as $link): ?>
+                <li>
+                    <a href="<?= htmlspecialchars($link['url']) ?>" target="_blank">
+                        <span class="cat-name"><?= htmlspecialchars($link['title']) ?></span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity: 0.5">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                    </a>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
     </aside>
     
     <section class="main-feed">
