@@ -6,9 +6,9 @@ $db = Database::getInstance()->getConnection();
 echo "Starting database seeding...\n";
 
 try {
-    // 1. Clear existing data
+    // 1. Clear existing data if tables exist
     echo "Cleaning old data...\n";
-    $db->exec("TRUNCATE blogs, categories, users CASCADE");
+    $db->exec("TRUNCATE blogs, categories, users RESTART IDENTITY CASCADE");
 
     // 2. Seed Users
     echo "Seeding users...\n";
