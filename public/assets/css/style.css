@@ -772,6 +772,10 @@ button {
     background: #bd081c;
 }
 
+.share-btn.reddit {
+    background: #ff4500;
+}
+
 .share-btn.email {
     background: #777777;
 }
