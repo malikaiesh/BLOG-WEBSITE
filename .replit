@@ -38,5 +38,5 @@ outputType = "webview"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd public && php -S 0.0.0.0:5000 router.php"
+args = "php -S 0.0.0.0:5000 -t public public/router.php"
 waitForPort = 5000
