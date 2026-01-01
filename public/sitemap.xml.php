@@ -3,6 +3,14 @@ require_once __DIR__ . '/../config/init.php';
 
 $blogModel = new Blog();
 $categoryModel = new Category();
+$settingsModel = new Settings();
+$settings = $settingsModel->getAll();
+
+if (($settings['seo_sitemap_status'] ?? 'enabled') === 'disabled') {
+    http_response_code(404);
+    echo "Sitemap is disabled.";
+    exit;
+}
 
 $blogs = $blogModel->getAll(1000);
 $categories = $categoryModel->getAll();

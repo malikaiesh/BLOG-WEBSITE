@@ -200,6 +200,27 @@ elseif ($uri === '/custom-code') {
     $pageTitle = 'Custom Code';
     include __DIR__ . '/views/custom-code.php';
 }
+elseif ($uri === '/seo') {
+    $settings = $settingsModel->getAll();
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (!verify_csrf($_POST['csrf_token'] ?? '')) {
+            die('CSRF token validation failed');
+        }
+        
+        $data = [
+            'seo_sitemap_status' => $_POST['seo_sitemap_status'],
+            'seo_auto_schema' => $_POST['seo_auto_schema'],
+            'seo_schema_type' => $_POST['seo_schema_type']
+        ];
+        
+        $settingsModel->update($data);
+        redirect('/admin/seo');
+    }
+    
+    $pageTitle = 'SEO Optimization';
+    include __DIR__ . '/views/seo.php';
+}
 else {
     redirect('/admin');
 }
