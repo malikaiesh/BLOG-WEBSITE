@@ -24,4 +24,20 @@ class QuickLink {
     public function delete($id) {
         return $this->db->query("DELETE FROM quick_links WHERE id = :id", [':id' => $id]);
     }
+
+    public function update($id, $data) {
+        return $this->db->query(
+            "UPDATE quick_links SET title = :title, url = :url, sort_order = :sort_order WHERE id = :id",
+            [
+                ':id' => $id,
+                ':title' => $data['title'],
+                ':url' => $data['url'],
+                ':sort_order' => $data['sort_order'] ?? 0
+            ]
+        );
+    }
+
+    public function getById($id) {
+        return $this->db->fetch("SELECT * FROM quick_links WHERE id = :id", [':id' => $id]);
+    }
 }
