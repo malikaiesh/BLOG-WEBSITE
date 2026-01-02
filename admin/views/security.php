@@ -7,52 +7,66 @@ $pageTitle = 'Security Settings';
 include __DIR__ . '/layout.php';
 ?>
 
-<div class="card">
-    <div class="card-header">
-        <h2>Security Overview</h2>
+<div class="security-container">
+    <div class="section-header" style="margin-bottom: 24px;">
+        <h2 style="font-size: 20px; font-weight: 600; color: #111827;">Security Overview</h2>
     </div>
-    <div class="card-content">
-        <div class="security-status" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px;">
-            <div class="status-item" style="padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #28a745;">
-                <h4 style="margin-bottom: 5px;">Brute-Force Protection</h4>
-                <p style="color: #28a745; font-weight: 600;">Active</p>
+
+    <div class="security-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px;">
+        <div class="security-card" style="padding: 24px; background: white; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+            <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                <div style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; margin-right: 8px;"></div>
+                <h4 style="font-size: 14px; font-weight: 500; color: #6b7280; margin: 0;">Brute-Force Protection</h4>
             </div>
-            <div class="status-item" style="padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #007bff;">
-                <h4 style="margin-bottom: 5px;">Session Hardening</h4>
-                <p style="color: #007bff; font-weight: 600;">Enabled</p>
-            </div>
-            <div class="status-item" style="padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #ffc107;">
-                <h4 style="margin-bottom: 5px;">Security Headers</h4>
-                <p style="color: #ffc107; font-weight: 600;">Configured</p>
-            </div>
+            <p style="font-size: 24px; font-weight: 700; color: #059669; margin: 0;">Active</p>
         </div>
 
-        <h3>Active Login Restrictions</h3>
-        <p class="text-secondary" style="margin-bottom: 15px;">IP addresses with multiple failed login attempts within the last 15 minutes.</p>
+        <div class="security-card" style="padding: 24px; background: white; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+            <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                <div style="width: 8px; height: 8px; border-radius: 50%; background: #3b82f6; margin-right: 8px;"></div>
+                <h4 style="font-size: 14px; font-weight: 500; color: #6b7280; margin: 0;">Session Hardening</h4>
+            </div>
+            <p style="font-size: 24px; font-weight: 700; color: #2563eb; margin: 0;">Enabled</p>
+        </div>
+
+        <div class="security-card" style="padding: 24px; background: white; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+            <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                <div style="width: 8px; height: 8px; border-radius: 50%; background: #f59e0b; margin-right: 8px;"></div>
+                <h4 style="font-size: 14px; font-weight: 500; color: #6b7280; margin: 0;">Security Headers</h4>
+            </div>
+            <p style="font-size: 24px; font-weight: 700; color: #d97706; margin: 0;">Configured</p>
+        </div>
+    </div>
+
+    <div class="security-section" style="background: white; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; margin-bottom: 32px;">
+        <div style="padding: 20px 24px; border-bottom: 1px solid #e5e7eb;">
+            <h3 style="font-size: 16px; font-weight: 600; color: #111827; margin-bottom: 4px;">Active Login Restrictions</h3>
+            <p style="font-size: 13px; color: #6b7280; margin: 0;">IP addresses with multiple failed login attempts within the last 15 minutes.</p>
+        </div>
         <div class="table-responsive">
-            <table class="table">
-                <thead>
+            <table class="table" style="width: 100%; border-collapse: collapse;">
+                <thead style="background: #f9fafb;">
                     <tr>
-                        <th>IP Address</th>
-                        <th>Attempts</th>
-                        <th>Last Attempt</th>
-                        <th>Status</th>
+                        <th style="padding: 12px 24px; text-align: left; font-size: 12px; font-weight: 600; color: #4b5563; text-transform: uppercase; letter-spacing: 0.05em;">IP Address</th>
+                        <th style="padding: 12px 24px; text-align: left; font-size: 12px; font-weight: 600; color: #4b5563; text-transform: uppercase; letter-spacing: 0.05em;">Attempts</th>
+                        <th style="padding: 12px 24px; text-align: left; font-size: 12px; font-weight: 600; color: #4b5563; text-transform: uppercase; letter-spacing: 0.05em;">Last Attempt</th>
+                        <th style="padding: 12px 24px; text-align: left; font-size: 12px; font-weight: 600; color: #4b5563; text-transform: uppercase; letter-spacing: 0.05em;">Status</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody style="divide-y: 1px solid #e5e7eb;">
                     <?php if (empty($attempts)): ?>
-                        <tr><td colspan="4" class="text-center">No active restrictions</td></tr>
+                        <tr><td colspan="4" style="padding: 32px; text-align: center; color: #9ca3af; font-size: 14px;">No active restrictions</td></tr>
                     <?php else: ?>
                         <?php foreach ($attempts as $attempt): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($attempt['ip_address']) ?></td>
-                                <td><?= $attempt['attempts'] ?>/5</td>
-                                <td><?= $attempt['last_attempt'] ?></td>
-                                <td>
+                            <tr style="border-top: 1px solid #e5e7eb;">
+                                <td style="padding: 16px 24px; font-size: 14px; color: #111827; font-family: monospace;"><?= htmlspecialchars($attempt['ip_address']) ?></td>
+                                <td style="padding: 16px 24px; font-size: 14px; color: #4b5563;"><?= $attempt['attempts'] ?>/5</td>
+                                <td style="padding: 16px 24px; font-size: 14px; color: #4b5563;"><?= date('M j, Y H:i:s', strtotime($attempt['last_attempt'])) ?></td>
+                                <td style="padding: 16px 24px;">
                                     <?php if ($attempt['attempts'] >= 5 && (time() - strtotime($attempt['last_attempt'])) < 900): ?>
-                                        <span class="badge danger" style="background: #dc3545; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Blocked</span>
+                                        <span style="display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 9999px; font-size: 12px; font-weight: 500; background: #fee2e2; color: #991b1b;">Blocked</span>
                                     <?php else: ?>
-                                        <span class="badge warning" style="background: #ffc107; color: black; padding: 4px 8px; border-radius: 4px; font-size: 12px;">Warning</span>
+                                        <span style="display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 9999px; font-size: 12px; font-weight: 500; background: #fef3c7; color: #92400e;">Warning</span>
                                     <?php endif; ?>
                                 </td>
                             </tr>
@@ -61,31 +75,39 @@ include __DIR__ . '/layout.php';
                 </tbody>
             </table>
         </div>
+    </div>
 
-        <h3 style="margin-top: 40px;">Recent Security Logs</h3>
+    <div class="security-section" style="background: white; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;">
+        <div style="padding: 20px 24px; border-bottom: 1px solid #e5e7eb;">
+            <h3 style="font-size: 16px; font-weight: 600; color: #111827; margin: 0;">Recent Security Logs</h3>
+        </div>
         <div class="table-responsive">
-            <table class="table">
-                <thead>
+            <table class="table" style="width: 100%; border-collapse: collapse;">
+                <thead style="background: #f9fafb;">
                     <tr>
-                        <th>Date</th>
-                        <th>Event</th>
-                        <th>IP Address</th>
-                        <th>Description</th>
+                        <th style="padding: 12px 24px; text-align: left; font-size: 12px; font-weight: 600; color: #4b5563; text-transform: uppercase; letter-spacing: 0.05em;">Date</th>
+                        <th style="padding: 12px 24px; text-align: left; font-size: 12px; font-weight: 600; color: #4b5563; text-transform: uppercase; letter-spacing: 0.05em;">Event</th>
+                        <th style="padding: 12px 24px; text-align: left; font-size: 12px; font-weight: 600; color: #4b5563; text-transform: uppercase; letter-spacing: 0.05em;">IP Address</th>
+                        <th style="padding: 12px 24px; text-align: left; font-size: 12px; font-weight: 600; color: #4b5563; text-transform: uppercase; letter-spacing: 0.05em;">Description</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($logs as $log): ?>
-                        <tr>
-                            <td><?= $log['created_at'] ?></td>
-                            <td>
-                                <span class="badge" style="background: <?= $log['event_type'] === 'login_success' ? '#28a745' : '#dc3545' ?>; color: white; padding: 4px 8px; border-radius: 4px; font-size: 11px;">
-                                    <?= htmlspecialchars($log['event_type']) ?>
-                                </span>
-                            </td>
-                            <td><?= htmlspecialchars($log['ip_address']) ?></td>
-                            <td><?= htmlspecialchars($log['description']) ?></td>
-                        </tr>
-                    <?php endforeach; ?>
+                    <?php if (empty($logs)): ?>
+                        <tr><td colspan="4" style="padding: 32px; text-align: center; color: #9ca3af; font-size: 14px;">No logs recorded</td></tr>
+                    <?php else: ?>
+                        <?php foreach ($logs as $log): ?>
+                            <tr style="border-top: 1px solid #e5e7eb;">
+                                <td style="padding: 16px 24px; font-size: 13px; color: #6b7280; white-space: nowrap;"><?= date('M j, Y H:i:s', strtotime($log['created_at'])) ?></td>
+                                <td style="padding: 16px 24px;">
+                                    <span style="display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-weight: 600; background: <?= $log['event_type'] === 'login_success' ? '#dcfce7' : '#fee2e2' ?>; color: <?= $log['event_type'] === 'login_success' ? '#166534' : '#991b1b' ?>; text-transform: uppercase;">
+                                        <?= str_replace('_', ' ', htmlspecialchars($log['event_type'])) ?>
+                                    </span>
+                                </td>
+                                <td style="padding: 16px 24px; font-size: 14px; color: #111827; font-family: monospace;"><?= htmlspecialchars($log['ip_address']) ?></td>
+                                <td style="padding: 16px 24px; font-size: 14px; color: #4b5563;"><?= htmlspecialchars($log['description']) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
