@@ -14,15 +14,45 @@ if ($uri === '/login') {
         
         $userModel = new User();
         $user = $userModel->authenticate($email, $password);
-        
-        if ($user) {
-            session_regenerate_id(true);
-            $_SESSION['admin_id'] = $user['id'];
-            $_SESSION['admin_name'] = $user['name'];
-            $_SESSION['admin_role'] = $user['role'];
-            redirect('/admin');
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $db = Database::getInstance()->getConnection();
+
+        // Brute-force protection
+        $stmt = $db->prepare("SELECT attempts, last_attempt FROM login_attempts WHERE ip_address = ?");
+        $stmt->execute([$ip]);
+        $attempt = $stmt->fetch();
+
+        if ($attempt && $attempt['attempts'] >= 5 && (time() - strtotime($attempt['last_attempt'])) < 900) {
+            $error = "Too many login attempts. Please try again in 15 minutes.";
         } else {
-            $error = 'Invalid email or password';
+            if ($user) {
+                // Reset attempts on success
+                $db->prepare("DELETE FROM login_attempts WHERE ip_address = ?")->execute([$ip]);
+                
+                session_regenerate_id(true);
+                $_SESSION['admin_id'] = $user['id'];
+                $_SESSION['admin_name'] = $user['name'];
+                $_SESSION['admin_role'] = $user['role'];
+                
+                // Log successful login
+                $db->prepare("INSERT INTO security_logs (event_type, description, ip_address, user_agent) VALUES ('login_success', ?, ?, ?)")
+                   ->execute(["Admin $email logged in", $ip, $_SERVER['HTTP_USER_AGENT']]);
+                
+                redirect('/admin');
+            } else {
+                // Record failed attempt
+                if ($attempt) {
+                    $db->prepare("UPDATE login_attempts SET attempts = attempts + 1, last_attempt = CURRENT_TIMESTAMP WHERE ip_address = ?")->execute([$ip]);
+                } else {
+                    $db->prepare("INSERT INTO login_attempts (ip_address) VALUES (?)")->execute([$ip]);
+                }
+                
+                // Log failed attempt
+                $db->prepare("INSERT INTO security_logs (event_type, description, ip_address, user_agent) VALUES ('login_failed', ?, ?, ?)")
+                   ->execute(["Failed login attempt for $email", $ip, $_SERVER['HTTP_USER_AGENT']]);
+
+                $error = 'Invalid email or password';
+            }
         }
     }
     include __DIR__ . '/views/login.php';
