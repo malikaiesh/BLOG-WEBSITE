@@ -38,6 +38,13 @@
                     </svg>
                     Categories
                 </a>
+                <a href="/admin/pages" class="nav-item <?= strpos(($uri ?? ''), '/pages') === 0 ? 'active' : '' ?>">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"></path>
+                    </svg>
+                    Pages
+                </a>
                 <a href="/admin/settings" class="nav-item <?= ($uri ?? '') === '/settings' ? 'active' : '' ?>">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="3"></circle>

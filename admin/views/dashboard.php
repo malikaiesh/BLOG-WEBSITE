@@ -93,7 +93,7 @@
             </svg>
         </div>
         <div class="stat-info">
-            <span class="stat-value" style="font-size: 1.2rem;">12</span>
+            <span class="stat-value" style="font-size: 1.2rem;"><?= $stats['pages_count'] ?></span>
             <span class="stat-label" style="font-size: 0.75rem;">Pages</span>
         </div>
     </div>
