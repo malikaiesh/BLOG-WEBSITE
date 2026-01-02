@@ -41,6 +41,27 @@ $categoryModel = new Category();
 $userModel = new User();
 $settingsModel = new Settings();
 
+function runInterlinking($blogModel) {
+    $blogs = $blogModel->getAllAdmin();
+    foreach ($blogs as $targetBlog) {
+        $content = $targetBlog['content'];
+        $modified = false;
+        foreach ($blogs as $sourceBlog) {
+            if ($targetBlog['id'] === $sourceBlog['id']) continue;
+            $title = $sourceBlog['title'];
+            $url = SITE_URL . '/blog/' . $sourceBlog['slug'];
+            $pattern = '/(?<!<a href=")(?<!">)\b' . preg_quote($title, '/') . '\b(?!<\/a>)/i';
+            if (preg_match($pattern, $content)) {
+                $content = preg_replace($pattern, '<a href="' . $url . '">' . $title . '</a>', $content, 1);
+                $modified = true;
+            }
+        }
+        if ($modified) {
+            $blogModel->update($targetBlog['id'], ['content' => $content, 'title' => $targetBlog['title']]);
+        }
+    }
+}
+
 if ($uri === '/' || $uri === '') {
     $stats = [
         'total_blogs' => $blogModel->count(),
@@ -83,6 +104,13 @@ elseif ($uri === '/blogs/create') {
         }
         
         $blogModel->create($data);
+        
+        // Auto interlinking
+        $settings = $settingsModel->getAll();
+        if ($settings['auto_interlinking'] ?? false) {
+            runInterlinking($blogModel);
+        }
+        
         redirect('/admin/blogs');
     }
     
@@ -117,6 +145,13 @@ elseif (preg_match('/^\/blogs\/edit\/(\d+)$/', $uri, $matches)) {
         }
         
         $blogModel->update($matches[1], $data);
+        
+        // Auto interlinking
+        $settings = $settingsModel->getAll();
+        if ($settings['auto_interlinking'] ?? false) {
+            runInterlinking($blogModel);
+        }
+        
         redirect('/admin/blogs');
     }
     
@@ -223,6 +258,9 @@ elseif ($uri === '/seo') {
 }
 elseif ($uri === '/webmaster-tools') {
     include __DIR__ . '/views/webmaster-tools.php';
+}
+elseif ($uri === '/interlinking') {
+    include __DIR__ . '/views/interlinking.php';
 }
 elseif ($uri === '/quick-links') {
     include __DIR__ . '/views/quick-links.php';
