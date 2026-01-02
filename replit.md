@@ -43,10 +43,18 @@ cd public && php -S 0.0.0.0:5000
 ```
 
 ## Database
-PostgreSQL with tables:
+PostgreSQL with tables. To initialize or reset the database, run:
+```bash
+php database/seed.php
+```
+
+Tables:
 - `users` - Admin accounts
 - `categories` - Blog categories
 - `blogs` - Blog posts with SEO fields
+- `site_settings` - Global configuration, logos, and verification codes
+- `quick_links` - "More Website" sidebar links
+- `custom_code` - Header/Body/Footer script injections
 
 ## Admin Access
 - URL: `/admin`
