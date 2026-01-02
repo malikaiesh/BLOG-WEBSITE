@@ -221,6 +221,9 @@ elseif ($uri === '/seo') {
     $pageTitle = 'SEO Optimization';
     include __DIR__ . '/views/seo.php';
 }
+elseif ($uri === '/webmaster-tools') {
+    include __DIR__ . '/views/webmaster-tools.php';
+}
 elseif ($uri === '/quick-links') {
     include __DIR__ . '/views/quick-links.php';
 }
