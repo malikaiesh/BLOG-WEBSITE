@@ -6,7 +6,25 @@
     <title><?= $pageTitle ?? 'BlogTube - Modern Blog Platform' ?></title>
     <meta name="description" content="<?= $metaDescription ?? 'Discover amazing content on BlogTube' ?>">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="<?= SITE_URL . $_SERVER['REQUEST_URI'] ?>">
+    <meta name="canonical" href="<?= SITE_URL . $_SERVER['REQUEST_URI'] ?>">
+    
+    <?php 
+    $headerSettings = (new Settings())->getAll();
+    
+    // Webmaster Tools Verification
+    if (!empty($headerSettings['google_search_console_code'])) {
+        echo "\n    <meta name=\"google-site-verification\" content=\"" . htmlspecialchars($headerSettings['google_search_console_code']) . "\" />";
+    }
+    if (!empty($headerSettings['bing_webmaster_code'])) {
+        echo "\n    <meta name=\"msvalidate.01\" content=\"" . htmlspecialchars($headerSettings['bing_webmaster_code']) . "\" />";
+    }
+    if (!empty($headerSettings['yandex_webmaster_code'])) {
+        echo "\n    <meta name=\"yandex-verification\" content=\"" . htmlspecialchars($headerSettings['yandex_webmaster_code']) . "\" />";
+    }
+    if (!empty($headerSettings['pinterest_verification_code'])) {
+        echo "\n    <meta name=\"p:domain_verify\" content=\"" . htmlspecialchars($headerSettings['pinterest_verification_code']) . "\" />";
+    }
+    ?>
     
     <meta property="og:title" content="<?= $pageTitle ?? 'BlogTube' ?>">
     <meta property="og:description" content="<?= $metaDescription ?? 'Discover amazing content' ?>">
@@ -21,7 +39,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css">
     <?php 
-    $headerSettings = (new Settings())->getAll();
     echo $headerSettings['custom_head_code'] ?? ''; 
     
     // SEO & Schema
