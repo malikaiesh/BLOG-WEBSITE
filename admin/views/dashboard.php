@@ -1,61 +1,9 @@
 <?php $pageTitle = 'Dashboard'; include __DIR__ . '/layout.php'; ?>
 
-<div class="stats-grid" style="grid-template-columns: repeat(4, 1fr);">
-    <div class="stat-card">
-        <div class="stat-icon blue">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-            </svg>
-        </div>
-        <div class="stat-info">
-            <span class="stat-value"><?= $stats['total_blogs'] ?></span>
-            <span class="stat-label">Total Posts</span>
-        </div>
-    </div>
-    
-    <div class="stat-card">
-        <div class="stat-icon green">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-        </div>
-        <div class="stat-info">
-            <span class="stat-value"><?= $stats['published'] ?></span>
-            <span class="stat-label">Published</span>
-        </div>
-    </div>
-    
-    <div class="stat-card">
-        <div class="stat-icon orange">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path>
-                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-            </svg>
-        </div>
-        <div class="stat-info">
-            <span class="stat-value"><?= $stats['drafts'] ?></span>
-            <span class="stat-label">Drafts</span>
-        </div>
-    </div>
-    
-    <div class="stat-card">
-        <div class="stat-icon purple">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"></path>
-            </svg>
-        </div>
-        <div class="stat-info">
-            <span class="stat-value"><?= $stats['categories'] ?></span>
-            <span class="stat-label">Categories</span>
-        </div>
-    </div>
-</div>
-
-<div class="stats-grid" style="grid-template-columns: repeat(4, 1fr); margin-top: 20px;">
-    <div class="stat-card">
-        <div class="stat-icon cyan">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 24px;">
+    <div class="stat-card" style="padding: 12px;">
+        <div class="stat-icon cyan" style="width: 32px; height: 32px; padding: 6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
                 <circle cx="9" cy="7" r="4"></circle>
                 <path d="M23 21v-2a4 4 0 00-3-3.87"></path>
@@ -63,14 +11,14 @@
             </svg>
         </div>
         <div class="stat-info">
-            <span class="stat-value">1,284</span>
-            <span class="stat-label">Active Users</span>
+            <span class="stat-value" style="font-size: 1.2rem;">1,284</span>
+            <span class="stat-label" style="font-size: 0.75rem;">Active Users</span>
         </div>
     </div>
 
-    <div class="stat-card">
-        <div class="stat-icon green">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <div class="stat-card" style="padding: 12px;">
+        <div class="stat-icon green" style="width: 32px; height: 32px; padding: 6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
                 <circle cx="9" cy="7" r="4"></circle>
                 <line x1="19" y1="8" x2="19" y2="14"></line>
@@ -78,14 +26,14 @@
             </svg>
         </div>
         <div class="stat-info">
-            <span class="stat-value">342</span>
-            <span class="stat-label">New Users</span>
+            <span class="stat-value" style="font-size: 1.2rem;">342</span>
+            <span class="stat-label" style="font-size: 0.75rem;">New Users</span>
         </div>
     </div>
 
-    <div class="stat-card">
-        <div class="stat-icon blue">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <div class="stat-card" style="padding: 12px;">
+        <div class="stat-icon blue" style="width: 32px; height: 32px; padding: 6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
                 <circle cx="9" cy="7" r="4"></circle>
                 <path d="M23 21v-2a4 4 0 00-3-3.87"></path>
@@ -93,66 +41,114 @@
             </svg>
         </div>
         <div class="stat-info">
-            <span class="stat-value">942</span>
-            <span class="stat-label">Returning Users</span>
+            <span class="stat-value" style="font-size: 1.2rem;">942</span>
+            <span class="stat-label" style="font-size: 0.75rem;">Returning Users</span>
         </div>
     </div>
 
-    <div class="stat-card">
-        <div class="stat-icon red">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <div class="stat-card" style="padding: 12px;">
+        <div class="stat-icon red" style="width: 32px; height: 32px; padding: 6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"></path>
                 <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"></path>
             </svg>
         </div>
         <div class="stat-info">
-            <span class="stat-value">45,201</span>
-            <span class="stat-label">Page Views</span>
+            <span class="stat-value" style="font-size: 1.2rem;">45,201</span>
+            <span class="stat-label" style="font-size: 0.75rem;">Page Views</span>
         </div>
     </div>
-</div>
 
-<div class="stats-grid" style="grid-template-columns: repeat(4, 1fr); margin-top: 20px;">
-    <div class="stat-card">
-        <div class="stat-icon indigo">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <div class="stat-card" style="padding: 12px;">
+        <div class="stat-icon indigo" style="width: 32px; height: 32px; padding: 6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"></path>
             </svg>
         </div>
         <div class="stat-info">
-            <span class="stat-value">3.2%</span>
-            <span class="stat-label">CTR</span>
+            <span class="stat-value" style="font-size: 1.2rem;">3.2%</span>
+            <span class="stat-label" style="font-size: 0.75rem;">CTR</span>
         </div>
     </div>
 
-    <div class="stat-card">
-        <div class="stat-icon yellow">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <div class="stat-card" style="padding: 12px;">
+        <div class="stat-icon yellow" style="width: 32px; height: 32px; padding: 6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="10"></circle>
                 <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
         </div>
         <div class="stat-info">
-            <span class="stat-value">4m 32s</span>
-            <span class="stat-label">Stay Time</span>
+            <span class="stat-value" style="font-size: 1.2rem;">4m 32s</span>
+            <span class="stat-label" style="font-size: 0.75rem;">Stay Time</span>
         </div>
     </div>
 
-    <div class="stat-card">
-        <div class="stat-icon pink">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <div class="stat-card" style="padding: 12px;">
+        <div class="stat-icon pink" style="width: 32px; height: 32px; padding: 6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
                 <line x1="3" y1="9" x2="21" y2="9"></line>
                 <line x1="9" y1="21" x2="9" y2="9"></line>
             </svg>
         </div>
         <div class="stat-info">
-            <span class="stat-value">12</span>
-            <span class="stat-label">Pages</span>
+            <span class="stat-value" style="font-size: 1.2rem;">12</span>
+            <span class="stat-label" style="font-size: 0.75rem;">Pages</span>
         </div>
     </div>
+</div>
 
-    <div class="stat-card" style="visibility: hidden;"></div>
+<div class="stats-grid" style="grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px;">
+    <div class="stat-card" style="padding: 12px;">
+        <div class="stat-icon blue" style="width: 32px; height: 32px; padding: 6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+        </div>
+        <div class="stat-info">
+            <span class="stat-value" style="font-size: 1.2rem;"><?= $stats['total_blogs'] ?></span>
+            <span class="stat-label" style="font-size: 0.75rem;">Total Posts</span>
+        </div>
+    </div>
+    
+    <div class="stat-card" style="padding: 12px;">
+        <div class="stat-icon green" style="width: 32px; height: 32px; padding: 6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        </div>
+        <div class="stat-info">
+            <span class="stat-value" style="font-size: 1.2rem;"><?= $stats['published'] ?></span>
+            <span class="stat-label" style="font-size: 0.75rem;">Published</span>
+        </div>
+    </div>
+    
+    <div class="stat-card" style="padding: 12px;">
+        <div class="stat-icon orange" style="width: 32px; height: 32px; padding: 6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+        </div>
+        <div class="stat-info">
+            <span class="stat-value" style="font-size: 1.2rem;"><?= $stats['drafts'] ?></span>
+            <span class="stat-label" style="font-size: 0.75rem;">Drafts</span>
+        </div>
+    </div>
+    
+    <div class="stat-card" style="padding: 12px;">
+        <div class="stat-icon purple" style="width: 32px; height: 32px; padding: 6px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"></path>
+            </svg>
+        </div>
+        <div class="stat-info">
+            <span class="stat-value" style="font-size: 1.2rem;"><?= $stats['categories'] ?></span>
+            <span class="stat-label" style="font-size: 0.75rem;">Categories</span>
+        </div>
+    </div>
 </div>
 
 <div class="dashboard-grid">
