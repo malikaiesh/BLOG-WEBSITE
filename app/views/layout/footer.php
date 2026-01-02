@@ -28,10 +28,18 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <ul>
+                    <?php 
+                    $footerQuickLinks = (new QuickLink())->getAll();
+                    foreach ($footerQuickLinks as $link): 
+                    ?>
+                    <li><a href="<?= htmlspecialchars($link['url']) ?>" target="_blank"><?= htmlspecialchars($link['title']) ?></a></li>
+                    <?php endforeach; ?>
+                    <?php if (empty($footerQuickLinks)): ?>
                     <li><a href="/">Home</a></li>
                     <li><a href="/about">About Us</a></li>
                     <li><a href="/contact">Contact Us</a></li>
                     <li><a href="/privacy">Privacy Policy</a></li>
+                    <?php endif; ?>
                 </ul>
             </div>
             <div class="footer-section">
