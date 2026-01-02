@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $pageTitle ?? 'BlogTube - Modern Blog Platform' ?></title>
+    
+    <?php 
+    $headerSettings = (new Settings())->getAll();
+    if (!empty($headerSettings['favicon_url'])): ?>
+    <link rel="icon" type="image/png" href="<?= $headerSettings['favicon_url'] ?>">
+    <?php endif; ?>
+
     <meta name="description" content="<?= $metaDescription ?? 'Discover amazing content on BlogTube' ?>">
     <meta name="robots" content="index, follow">
     <meta name="canonical" href="<?= SITE_URL . $_SERVER['REQUEST_URI'] ?>">
@@ -66,10 +73,14 @@
     <header class="main-header">
         <nav class="navbar">
             <a href="/" class="logo">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
-                </svg>
-                <span>BlogTube</span>
+                <?php if (!empty($headerSettings['logo_url'])): ?>
+                    <img src="<?= $headerSettings['logo_url'] ?>" alt="<?= htmlspecialchars($headerSettings['site_name'] ?? 'BlogTube') ?>" style="max-height: 32px;">
+                <?php else: ?>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                    </svg>
+                <?php endif; ?>
+                <span><?= htmlspecialchars($headerSettings['site_name'] ?? 'BlogTube') ?></span>
             </a>
             
             <div class="search-container">

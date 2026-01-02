@@ -207,6 +207,20 @@ elseif ($uri === '/settings') {
             'footer_social_links' => $_POST['social']
         ];
         
+        if (!empty($_FILES['logo']['name'])) {
+            $upload = uploadImage($_FILES['logo']);
+            if (isset($upload['path'])) {
+                $data['logo_url'] = $upload['path'];
+            }
+        }
+        
+        if (!empty($_FILES['favicon']['name'])) {
+            $upload = uploadImage($_FILES['favicon']);
+            if (isset($upload['path'])) {
+                $data['favicon_url'] = $upload['path'];
+            }
+        }
+        
         $settingsModel->update($data);
         redirect('/admin/settings?success=1');
     }
