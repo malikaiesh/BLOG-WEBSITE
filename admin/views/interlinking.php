@@ -1,7 +1,4 @@
 <?php 
-$pageTitle = 'Blog Interlinking';
-include __DIR__ . '/layout.php'; 
-
 $settingsModel = new Settings();
 $blogModel = new Blog();
 $settings = $settingsModel->getAll();
@@ -52,6 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         redirect('/admin/interlinking?processed=' . $processedCount);
     }
 }
+
+$pageTitle = 'Blog Interlinking';
+include __DIR__ . '/layout.php'; 
 ?>
 
 <div class="card">
