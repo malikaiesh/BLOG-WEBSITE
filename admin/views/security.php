@@ -1,5 +1,32 @@
 <?php
 $db = Database::getInstance()->getConnection();
+
+// Handle Form Submissions
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['action'])) {
+        if ($_POST['action'] === 'add_user') {
+            $name = $_POST['name'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $password = password_hash($_POST['password'] ?? '', PASSWORD_DEFAULT);
+            $role = $_POST['role'] ?? 'editor';
+            
+            $stmt = $db->prepare("INSERT INTO users (name, email, password, role, created_at) VALUES (?, ?, ?, ?, NOW())");
+            $stmt->execute([$name, $email, $password, $role]);
+            header("Location: /admin/security?success=user_added");
+            exit;
+        } elseif ($_POST['action'] === 'change_password') {
+            $userId = $_POST['user_id'] ?? 0;
+            $newPassword = password_hash($_POST['password'] ?? '', PASSWORD_DEFAULT);
+            
+            $stmt = $db->prepare("UPDATE users SET password = ? WHERE id = ?");
+            $stmt->execute([$newPassword, $userId]);
+            header("Location: /admin/security?success=password_changed");
+            exit;
+        }
+    }
+}
+
+$users = $db->query("SELECT id, name, email, role FROM users ORDER BY id ASC")->fetchAll();
 $logs = $db->query("SELECT * FROM security_logs ORDER BY created_at DESC LIMIT 50")->fetchAll();
 $attempts = $db->query("SELECT * FROM login_attempts ORDER BY last_attempt DESC")->fetchAll();
 
@@ -8,9 +35,110 @@ include __DIR__ . '/layout.php';
 ?>
 
 <div class="security-container">
-    <div class="section-header" style="margin-bottom: 24px;">
-        <h2 style="font-size: 20px; font-weight: 600; color: #111827;">Security Overview</h2>
+    <?php if (isset($_GET['success'])): ?>
+        <div style="padding: 12px 16px; background: #dcfce7; color: #166534; border-radius: 8px; margin-bottom: 24px; font-size: 14px;">
+            <?= $_GET['success'] === 'user_added' ? 'User added successfully!' : 'Password updated successfully!' ?>
+        </div>
+    <?php endif; ?>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <h2 style="font-size: 20px; font-weight: 600; color: #111827; margin: 0;">Security Overview</h2>
+        <button onclick="document.getElementById('addUserModal').style.display='flex'" style="padding: 8px 16px; background: #2563eb; color: white; border: none; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer;">Add New User</button>
     </div>
+
+    <!-- User Management Section -->
+    <div class="security-section" style="background: white; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; margin-bottom: 32px;">
+        <div style="padding: 20px 24px; border-bottom: 1px solid #e5e7eb;">
+            <h3 style="font-size: 16px; font-weight: 600; color: #111827; margin: 0;">User Management</h3>
+        </div>
+        <div class="table-responsive">
+            <table class="table" style="width: 100%; border-collapse: collapse;">
+                <thead style="background: #f9fafb;">
+                    <tr>
+                        <th style="padding: 12px 24px; text-align: left; font-size: 12px; font-weight: 600; color: #4b5563; text-transform: uppercase;">Name</th>
+                        <th style="padding: 12px 24px; text-align: left; font-size: 12px; font-weight: 600; color: #4b5563; text-transform: uppercase;">Email</th>
+                        <th style="padding: 12px 24px; text-align: left; font-size: 12px; font-weight: 600; color: #4b5563; text-transform: uppercase;">Role</th>
+                        <th style="padding: 12px 24px; text-align: right; font-size: 12px; font-weight: 600; color: #4b5563; text-transform: uppercase;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($users as $user): ?>
+                        <tr style="border-top: 1px solid #e5e7eb;">
+                            <td style="padding: 16px 24px; font-size: 14px; color: #111827;"><?= htmlspecialchars($user['name']) ?></td>
+                            <td style="padding: 16px 24px; font-size: 14px; color: #4b5563;"><?= htmlspecialchars($user['email']) ?></td>
+                            <td style="padding: 16px 24px;">
+                                <span style="display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-weight: 600; background: <?= $user['role'] === 'admin' ? '#ebf5ff' : '#f3f4f6' ?>; color: <?= $user['role'] === 'admin' ? '#1e40af' : '#374151' ?>; text-transform: uppercase;">
+                                    <?= htmlspecialchars($user['role']) ?>
+                                </span>
+                            </td>
+                            <td style="padding: 16px 24px; text-align: right;">
+                                <button onclick="openChangePassword(<?= $user['id'] ?>, '<?= htmlspecialchars($user['name']) ?>')" style="background: none; border: none; color: #2563eb; font-size: 13px; cursor: pointer; font-weight: 500;">Change Password</button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="addUserModal" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); align-items:center; justify-content:center; z-index: 1000;">
+        <div style="background: white; padding: 32px; border-radius: 12px; width: 400px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
+            <h3 style="margin-top:0; margin-bottom: 24px; font-size: 18px; font-weight: 600;">Add New User</h3>
+            <form method="POST">
+                <input type="hidden" name="action" value="add_user">
+                <div style="margin-bottom: 16px;">
+                    <label style="display:block; font-size: 13px; font-weight: 500; color: #374151; margin-bottom: 4px;">Full Name</label>
+                    <input type="text" name="name" required style="width:100%; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px;">
+                </div>
+                <div style="margin-bottom: 16px;">
+                    <label style="display:block; font-size: 13px; font-weight: 500; color: #374151; margin-bottom: 4px;">Email Address</label>
+                    <input type="email" name="email" required style="width:100%; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px;">
+                </div>
+                <div style="margin-bottom: 16px;">
+                    <label style="display:block; font-size: 13px; font-weight: 500; color: #374151; margin-bottom: 4px;">Password</label>
+                    <input type="password" name="password" required style="width:100%; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px;">
+                </div>
+                <div style="margin-bottom: 24px;">
+                    <label style="display:block; font-size: 13px; font-weight: 500; color: #374151; margin-bottom: 4px;">Role</label>
+                    <select name="role" style="width:100%; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px;">
+                        <option value="editor">Editor</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                    <button type="button" onclick="this.closest('#addUserModal').style.display='none'" style="padding: 8px 16px; background: white; border: 1px solid #d1d5db; border-radius: 6px; cursor: pointer;">Cancel</button>
+                    <button type="submit" style="padding: 8px 16px; background: #2563eb; color: white; border: none; border-radius: 6px; cursor: pointer;">Add User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="passwordModal" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); align-items:center; justify-content:center; z-index: 1000;">
+        <div style="background: white; padding: 32px; border-radius: 12px; width: 400px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
+            <h3 id="passModalTitle" style="margin-top:0; margin-bottom: 24px; font-size: 18px; font-weight: 600;">Change Password</h3>
+            <form method="POST">
+                <input type="hidden" name="action" value="change_password">
+                <input type="hidden" name="user_id" id="passUserId">
+                <div style="margin-bottom: 24px;">
+                    <label style="display:block; font-size: 13px; font-weight: 500; color: #374151; margin-bottom: 4px;">New Password</label>
+                    <input type="password" name="password" required style="width:100%; padding: 8px 12px; border: 1px solid #d1d5db; border-radius: 6px;">
+                </div>
+                <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                    <button type="button" onclick="this.closest('#passwordModal').style.display='none'" style="padding: 8px 16px; background: white; border: 1px solid #d1d5db; border-radius: 6px; cursor: pointer;">Cancel</button>
+                    <button type="submit" style="padding: 8px 16px; background: #2563eb; color: white; border: none; border-radius: 6px; cursor: pointer;">Update Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    function openChangePassword(id, name) {
+        document.getElementById('passUserId').value = id;
+        document.getElementById('passModalTitle').innerText = 'Change Password for ' + name;
+        document.getElementById('passwordModal').style.display = 'flex';
+    }
+    </script>
 
     <div class="security-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px;">
         <div class="security-card" style="padding: 24px; background: white; border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
