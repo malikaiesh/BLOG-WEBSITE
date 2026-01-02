@@ -130,14 +130,21 @@ function initSearch() {
                 const data = await response.json();
                 
                 if (data.blogs && data.blogs.length > 0) {
-                    suggestions.innerHTML = data.blogs.slice(0, 5).map(blog => `
-                        <a href="/blog/${blog.slug}" class="suggestion-item">
-                            ${escapeHtml(blog.title)}
-                        </a>
-                    `).join('');
+                    suggestions.innerHTML = '';
+                    data.blogs.slice(0, 5).forEach(blog => {
+                        const link = document.createElement('a');
+                        link.href = '/blog/' + encodeURIComponent(blog.slug);
+                        link.className = 'suggestion-item';
+                        link.textContent = blog.title;
+                        suggestions.appendChild(link);
+                    });
                     suggestions.classList.add('active');
                 } else {
-                    suggestions.innerHTML = '<div class="suggestion-item">No results found</div>';
+                    suggestions.innerHTML = '';
+                    const noResults = document.createElement('div');
+                    noResults.className = 'suggestion-item';
+                    noResults.textContent = 'No results found';
+                    suggestions.appendChild(noResults);
                     suggestions.classList.add('active');
                 }
             } catch (error) {
