@@ -324,6 +324,9 @@ elseif ($uri === '/interlinking') {
 elseif ($uri === '/quick-links') {
     include __DIR__ . '/views/quick-links.php';
 }
+elseif ($uri === '/security') {
+    include __DIR__ . '/views/security.php';
+}
 else {
     redirect('/admin');
 }
