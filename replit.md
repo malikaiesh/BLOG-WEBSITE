@@ -58,8 +58,8 @@ Tables:
 
 ## Admin Access
 - URL: `/admin`
-- Email: `admin@blogtube.com`
-- Password: `password`
+- Email: `admin@blog.com`
+- Password: `admin123`
 
 ## Recent Changes
 - December 18, 2025: Initial build with full CMS functionality
