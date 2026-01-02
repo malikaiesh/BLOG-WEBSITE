@@ -97,7 +97,8 @@ if ($uri === '/' || $uri === '') {
         'total_blogs' => $blogModel->count(),
         'published' => $blogModel->count('published'),
         'drafts' => $blogModel->count('draft'),
-        'categories' => count($categoryModel->getAll())
+        'categories' => count($categoryModel->getAll()),
+        'pages_count' => $db->query("SELECT COUNT(*) FROM pages")->fetchColumn()
     ];
     $recentBlogs = $blogModel->getAll(5, 0);
     $trending = $blogModel->getTrending(5);
@@ -326,6 +327,16 @@ elseif ($uri === '/quick-links') {
 }
 elseif ($uri === '/security') {
     include __DIR__ . '/views/security.php';
+}
+elseif ($uri === '/pages') {
+    include __DIR__ . '/views/pages.php';
+}
+elseif ($uri === '/pages/create') {
+    include __DIR__ . '/views/page-form.php';
+}
+elseif (preg_match('/^\/pages\/edit\/(\d+)$/', $uri, $matches)) {
+    $params = ['id' => $matches[1]];
+    include __DIR__ . '/views/page-form.php';
 }
 else {
     redirect('/admin');
