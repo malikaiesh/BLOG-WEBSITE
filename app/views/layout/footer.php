@@ -26,7 +26,7 @@
                 </ul>
             </div>
             <div class="footer-section">
-                <h4>Quick Links</h4>
+                <h4>More Website</h4>
                 <ul>
                     <?php 
                     $footerQuickLinks = (new QuickLink())->getAll();

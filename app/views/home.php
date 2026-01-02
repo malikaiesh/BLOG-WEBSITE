@@ -38,7 +38,7 @@ include APP_PATH . '/views/layout/header.php';
         </div>
 
         <div class="sidebar-section">
-            <h3>Quick Links</h3>
+            <h3>More Website</h3>
             <ul class="category-list">
                 <?php foreach ($quickLinks as $link): ?>
                 <li>

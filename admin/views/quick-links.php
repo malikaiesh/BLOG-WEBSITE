@@ -34,13 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $quickLinks = $quickLinkModel->getAll();
-$pageTitle = 'Manage Quick Links';
+$pageTitle = 'Manage More Website Links';
 include __DIR__ . '/layout.php';
 ?>
 
 <div class="card">
     <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-        <h2><?= $editLink ? 'Update Quick Link' : 'Add New Quick Link' ?></h2>
+        <h2><?= $editLink ? 'Update Website Link' : 'Add New Website Link' ?></h2>
         <?php if ($editLink): ?>
             <a href="/admin/quick-links" class="btn btn-secondary">Back to List</a>
         <?php endif; ?>
@@ -90,7 +90,7 @@ include __DIR__ . '/layout.php';
 
 <div class="card" style="margin-top: 30px;">
     <div class="card-header">
-        <h2>Existing Quick Links</h2>
+        <h2>Existing Website Links</h2>
     </div>
     <div class="card-content" style="padding: 0;">
         <table class="admin-table">
