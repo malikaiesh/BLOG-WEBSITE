@@ -1,6 +1,6 @@
 <?php $pageTitle = 'Dashboard'; include __DIR__ . '/layout.php'; ?>
 
-<div class="stats-grid">
+<div class="stats-grid" style="grid-template-columns: repeat(4, 1fr);">
     <div class="stat-card">
         <div class="stat-icon blue">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -50,6 +50,109 @@
             <span class="stat-label">Categories</span>
         </div>
     </div>
+</div>
+
+<div class="stats-grid" style="grid-template-columns: repeat(4, 1fr); margin-top: 20px;">
+    <div class="stat-card">
+        <div class="stat-icon cyan">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 00-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 010 7.75"></path>
+            </svg>
+        </div>
+        <div class="stat-info">
+            <span class="stat-value">1,284</span>
+            <span class="stat-label">Active Users</span>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon green">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <line x1="19" y1="8" x2="19" y2="14"></line>
+                <line x1="16" y1="11" x2="22" y2="11"></line>
+            </svg>
+        </div>
+        <div class="stat-info">
+            <span class="stat-value">342</span>
+            <span class="stat-label">New Users</span>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon blue">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 00-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 010 7.75"></path>
+            </svg>
+        </div>
+        <div class="stat-info">
+            <span class="stat-value">942</span>
+            <span class="stat-label">Returning Users</span>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon red">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"></path>
+            </svg>
+        </div>
+        <div class="stat-info">
+            <span class="stat-value">45,201</span>
+            <span class="stat-label">Page Views</span>
+        </div>
+    </div>
+</div>
+
+<div class="stats-grid" style="grid-template-columns: repeat(4, 1fr); margin-top: 20px;">
+    <div class="stat-card">
+        <div class="stat-icon indigo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"></path>
+            </svg>
+        </div>
+        <div class="stat-info">
+            <span class="stat-value">3.2%</span>
+            <span class="stat-label">CTR</span>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon yellow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+        </div>
+        <div class="stat-info">
+            <span class="stat-value">4m 32s</span>
+            <span class="stat-label">Stay Time</span>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon pink">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="3" y1="9" x2="21" y2="9"></line>
+                <line x1="9" y1="21" x2="9" y2="9"></line>
+            </svg>
+        </div>
+        <div class="stat-info">
+            <span class="stat-value">12</span>
+            <span class="stat-label">Pages</span>
+        </div>
+    </div>
+
+    <div class="stat-card" style="visibility: hidden;"></div>
 </div>
 
 <div class="dashboard-grid">
