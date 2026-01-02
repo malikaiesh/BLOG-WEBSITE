@@ -74,7 +74,8 @@ if ($uri === '/' || $uri === '') {
     include __DIR__ . '/views/dashboard.php';
 }
 elseif ($uri === '/blogs') {
-    $blogs = $blogModel->getAllAdmin();
+    $showTrash = isset($_GET['trash']) && $_GET['trash'] == 1;
+    $blogs = $blogModel->getAllAdmin($showTrash);
     include __DIR__ . '/views/blogs.php';
 }
 elseif ($uri === '/blogs/create') {
@@ -161,8 +162,22 @@ elseif (preg_match('/^\/blogs\/delete\/(\d+)$/', $uri, $matches)) {
     if (!verify_csrf($_GET['token'] ?? '')) {
         die('CSRF token validation failed');
     }
-    $blogModel->delete($matches[1]);
-    redirect('/admin/blogs');
+    $blogModel->softDelete($matches[1]);
+    redirect('/admin/blogs?deleted=1');
+}
+elseif (preg_match('/^\/blogs\/restore\/(\d+)$/', $uri, $matches)) {
+    if (!verify_csrf($_GET['token'] ?? '')) {
+        die('CSRF token validation failed');
+    }
+    $blogModel->restore($matches[1]);
+    redirect('/admin/blogs?trash=1&restored=1');
+}
+elseif (preg_match('/^\/blogs\/force-delete\/(\d+)$/', $uri, $matches)) {
+    if (!verify_csrf($_GET['token'] ?? '')) {
+        die('CSRF token validation failed');
+    }
+    $blogModel->forceDelete($matches[1]);
+    redirect('/admin/blogs?trash=1&permanent=1');
 }
 elseif ($uri === '/categories') {
     $categories = $categoryModel->getWithCount();

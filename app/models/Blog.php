@@ -181,12 +181,31 @@ class Blog {
         return $this->db->fetch($sql)['count'];
     }
 
-    public function getAllAdmin() {
+    public function getAllAdmin($includeTrash = false) {
         $sql = "SELECT b.*, c.name as category_name, u.name as author_name
                 FROM blogs b
                 LEFT JOIN categories c ON b.category_id = c.id
-                LEFT JOIN users u ON b.author_id = u.id
-                ORDER BY b.created_at DESC";
+                LEFT JOIN users u ON b.author_id = u.id";
+        
+        if ($includeTrash) {
+            $sql .= " WHERE b.deleted_at IS NOT NULL";
+        } else {
+            $sql .= " WHERE b.deleted_at IS NULL";
+        }
+        
+        $sql .= " ORDER BY b.created_at DESC";
         return $this->db->fetchAll($sql);
+    }
+
+    public function softDelete($id) {
+        return $this->db->query("UPDATE blogs SET deleted_at = NOW(), status = 'draft' WHERE id = :id", [':id' => $id]);
+    }
+
+    public function restore($id) {
+        return $this->db->query("UPDATE blogs SET deleted_at = NULL WHERE id = :id", [':id' => $id]);
+    }
+
+    public function forceDelete($id) {
+        return $this->db->query("DELETE FROM blogs WHERE id = :id", [':id' => $id]);
     }
 }
