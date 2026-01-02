@@ -59,7 +59,11 @@ function initImagePreview() {
                 preview.className = 'current-image';
                 fileInput.parentNode.insertBefore(preview, fileInput);
             }
-            preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+            preview.textContent = '';
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.alt = 'Preview';
+            preview.appendChild(img);
         };
         reader.readAsDataURL(file);
     });
